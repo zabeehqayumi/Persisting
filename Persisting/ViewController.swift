@@ -7,10 +7,14 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
+
 
 class ViewController: UITableViewController {
-    var itemArray = [Item]()
+    
+    var itemArray : Results<Item>?
+    
+    let realm = try! Realm()
     
 let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -20,27 +24,18 @@ let context = (UIApplication.shared.delegate as! AppDelegate).persistentContaine
         super.viewDidLoad()
         loadItems()
   
-     
-
-        
+    
     }
     
-    
-
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var newTextField = UITextField()
         let alert = UIAlertController(title: "Add Item ", message: "Please add your item", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             
-            let newItem = Item(context: self.context)
+            let newItem = Item()
             newItem.title = newTextField.text!
-            newItem.done = false
-            self.itemArray.append(newItem)
-            self.saveItem()
-            
-            
-            
-            
+            self.saveItems(contents: newItem)
+
         }
         alert.addTextField { (textField) in
             textField.placeholder = "Please type here "
@@ -56,45 +51,36 @@ let context = (UIApplication.shared.delegate as! AppDelegate).persistentContaine
 
 extension ViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemArray.count
+        return itemArray?.count ?? 1
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = itemArray[indexPath.row].title
-        var item = itemArray[indexPath.row]
-        cell.accessoryType = item.done == true ? .checkmark : .none
+        cell.textLabel?.text = itemArray?[indexPath.row].title ?? ""
         return cell
     }
     
     
-    func saveItem(){
+ 
+    func saveItems(contents : Item){
         do{
-            try context.save()
-         
-        }catch{
+            try realm.write {
+                realm.add(contents)
+            }
+        }
+        catch{
             return
         }
         tableView.reloadData()
-        
     }
     
     func loadItems(){
-        
-        let request : NSFetchRequest<Item>  = Item.fetchRequest()
- 
-            do{
-                itemArray  = try context.fetch(request)
-            }catch{
-                return
-            }
+        itemArray =  realm.objects(Item.self)
         tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = itemArray[indexPath.row]
-        item.done = !item.done
-        saveItem()
+     
         
         
     }
