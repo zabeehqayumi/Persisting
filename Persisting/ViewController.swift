@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UITableViewController {
     var itemArray = [Item]()
     
-let filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Nothing.plist")
+let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadItems()
+  
      
 
         
@@ -28,7 +32,7 @@ let filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomain
         let alert = UIAlertController(title: "Add Item ", message: "Please add your item", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             
-            let newItem = Item()
+            let newItem = Item(context: self.context)
             newItem.title = newTextField.text!
             newItem.done = false
             self.itemArray.append(newItem)
@@ -64,10 +68,9 @@ extension ViewController{
     
     
     func saveItem(){
-        let encoder = PropertyListEncoder()
         do{
-            let data = try encoder.encode(itemArray)
-            try data.write(to: filePath!)
+            try context.save()
+         
         }catch{
             return
         }
@@ -76,14 +79,14 @@ extension ViewController{
     }
     
     func loadItems(){
-        if let data = try? Data(contentsOf: filePath!){
-            let decoder = PropertyListDecoder()
+        
+        let request : NSFetchRequest<Item>  = Item.fetchRequest()
+ 
             do{
-                itemArray = try decoder.decode([Item].self, from: data)
+                itemArray  = try context.fetch(request)
             }catch{
                 return
             }
-        }
         tableView.reloadData()
     }
     
@@ -95,7 +98,7 @@ extension ViewController{
         
         
     }
+}
     
 
-}
 

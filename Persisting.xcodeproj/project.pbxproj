@@ -13,7 +13,6 @@
 		4EC0CF1E2151CA7C00355C29 /* Persisting.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4EC0CF1C2151CA7C00355C29 /* Persisting.xcdatamodeld */; };
 		4EC0CF202151CA7E00355C29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EC0CF1F2151CA7E00355C29 /* Assets.xcassets */; };
 		4EC0CF232151CA7E00355C29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EC0CF212151CA7E00355C29 /* LaunchScreen.storyboard */; };
-		4EC0CF2B2151D06500355C29 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC0CF2A2151D06500355C29 /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +24,6 @@
 		4EC0CF1F2151CA7E00355C29 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EC0CF222151CA7E00355C29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4EC0CF242151CA7E00355C29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EC0CF2A2151D06500355C29 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +58,6 @@
 			children = (
 				4EC0CF152151CA7C00355C29 /* AppDelegate.swift */,
 				4EC0CF172151CA7C00355C29 /* ViewController.swift */,
-				4EC0CF2A2151D06500355C29 /* Item.swift */,
 				4EC0CF192151CA7C00355C29 /* Main.storyboard */,
 				4EC0CF1F2151CA7E00355C29 /* Assets.xcassets */,
 				4EC0CF212151CA7E00355C29 /* LaunchScreen.storyboard */,
@@ -141,7 +138,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EC0CF2B2151D06500355C29 /* Item.swift in Sources */,
 				4EC0CF1E2151CA7C00355C29 /* Persisting.xcdatamodeld in Sources */,
 				4EC0CF182151CA7C00355C29 /* ViewController.swift in Sources */,
 				4EC0CF162151CA7C00355C29 /* AppDelegate.swift in Sources */,
